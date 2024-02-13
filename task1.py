@@ -1,7 +1,16 @@
 import requests
 from config import headers
+import socket
 
-def room_temp(room):
+def get_ip(host):
+    try:
+        result = socket.getaddrinfo("google.com", None)
+    except Exception as e:
+        print(e)
+        result = f"Error in find the IP, {e}"
+    return result
+
+def temp_room(room):
     result = "Temperature = 20, Humidity = 50"
     return result
 
@@ -44,6 +53,20 @@ definations = [
                     "room" : {                 # Argument for function temp_city
                         "type":"string",
                         "description":"room or home"
+                    }
+                }
+            }
+    },
+    {
+        "name":"get_ip",  # name of the function to be called
+        "description": "find ip address of given url or domain name",
+        "parameters":
+            {
+                "type":"object",
+                "properties":{
+                    "host" : {                 # Argument for function temp_city
+                        "type":"string",
+                        "description":"get url or domain name"
                     }
                 }
             }

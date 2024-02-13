@@ -16,7 +16,7 @@ def chat1(chat):
     # print(t1)
     t2 = t1.get("candidates")[0].get("content").get("parts")[0].get("text")
     print(t2)
-    
+
 chat = mic1()
 # chat="who is Deepesh Ahuja"
 chat1(chat)
