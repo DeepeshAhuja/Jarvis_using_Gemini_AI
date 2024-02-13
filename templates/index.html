@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Window</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/ai_1.png'); /* Specify the path to your background image */
+            background-size: cover; /* Cover the entire viewport */
+            font-family: Arial, sans-serif;
+        }
+
+        #chat-container {
+            height: 500px;
+            max-width: 500px; /* Adjust the width as needed */
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+            padding: 10px;
+            background-image: url('/static/chat.jpg'); /* Background image */
+            background-size: cover; /* Cover the entire container */
+            background-repeat: no-repeat; /* No repeating of the image */
+            background-position: center; /* Center the background image */
+            margin: 50px auto;
+            border-radius: 10px;
+        }
+
+        .input-wrapper{
+          max-width: 500px;
+          margin: 0 auto;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #00ffcc; /* Light green background for messages */
+            border-radius: 10px;
+            color: #000; /* Black text color */
+            font-size: 16px;
+            width: 100%; /* Ensure messages have the same width as input */
+            margin-left: auto; /* Align messages to the right */
+            margin-right: 0; /* Align messages to the right */
+        }
+
+        #message-input {
+            width: 70%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 20px; /* Rounded input field */
+            font-size: 16px;
+            background-color: #F4F4F4; /* Light gray background */
+            color: #000; /* Black text color */
+            outline: none; /* Remove default input outline */
+            padding-left: 20px; /* Add some padding to the left */
+            margin-left: auto; /* Align input to the right */
+            margin-right: 0; /* Align input to the right */
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px; /* Rounded button */
+            background-color: #007AFF; /* WhatsApp-like blue color */
+            color: #FFF; /* White text color */
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 10px; /* Add some space between input and button */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker shade of blue on hover */
+        }
+    </style>
+</head>
+<body>
+  <body onload="displayInitialMessage()">
+    <div id="chat-container">
+        <!-- Messages will be displayed here -->
+    </div>
+    <div class="input-wrapper">
+      <input type="text" id="message-input" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+      <button onclick="startListening()">Start Listening</button>
+    </div>
+
+    <script>
+        // JavaScript for sending messages and displaying responses
+        function sendMessage() {
+            var message = document.getElementById("message-input").value;
+            displayMessage("You: " + message);
+            document.getElementById("message-input").value = "";
+
+            // Send the message to the server for processing
+            fetch("/process_message", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                var response = data.response;
+                displayMessage("Jarvis: " + response);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function displayMessage(message) {
+            var chatContainer = document.getElementById("chat-container");
+            var messageElement = document.createElement("div");
+            messageElement.textContent = message;
+            messageElement.classList.add("message");
+            chatContainer.appendChild(messageElement);
+            chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to bottom
+        }
+
+        // Function to start listening through microphone
+        function startListening() {
+            var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.onresult = function(event) {
+                var transcript = event.results[0][0].transcript;
+                document.getElementById("message-input").value = transcript;
+            }
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+            }
+
+            recognition.start();
+        }
+        function displayInitialMessage() {
+    displayMessage("Jarvis: Hello Boss");
+}
+
+    </script>
+</body>
+</html>
