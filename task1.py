@@ -1,10 +1,10 @@
 import requests
-from config import headers
+from config import headers, key
 import socket
 
 def get_ip(host):
     try:
-        result = socket.getaddrinfo("google.com", None)
+        result = socket.getaddrinfo(host, None)
     except Exception as e:
         print(e)
         result = f"Error in find the IP, {e}"
@@ -26,9 +26,38 @@ def temp_city(city):
     hum = d1.get("atmosphere").get("humidity")
     temp = d1.get("condition").get("temperature")
     temp = round((temp-32)*5/9,2)
-    return (f"humidity:  {hum}, Temperature: {temp}")
+    return (f"humidity:  {hum}, Temperature in C: {temp}")
+
+def chat1(chat):
+    messages = [] #list with all messages
+    system_message = "You are an AI bot, your name is Jarvis. find the content related to query: " # first instruction
+    message = {"role" : "user", "parts" : [{"text": system_message+" "+chat}]}
+    messages.append(message)
+    data = {"contents" : messages}
+    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key="+key
+    response = requests.post(url, json=data)
+    
+    t1 = response.json()
+    # print(t1)
+    t2 = t1.get("candidates")[0].get("content").get("parts")[0].get("text")
+    print(t2)
+    return t2
 
 definations = [
+    {
+        "name":"chat1",  # name of the function to be called
+        "description": "find content of related query",
+        "parameters":
+            {
+                "type":"object",
+                "properties":{
+                    "chat" : {                 # Argument for function temp_city
+                        "type":"string",
+                        "description":"full query asked by user"
+                    }
+                }
+            }
+    },
     {
         "name":"temp_city",  # name of the function to be called
         "description": "find weather, temperature of a city",

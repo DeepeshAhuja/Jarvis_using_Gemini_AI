@@ -23,7 +23,7 @@ def parse_function_response(message):
             function_response = "No arguments are present"
     except Exception as e:
         print("Error: ",e)
-        function_response = "Invalid response"
+        function_response = "Type again"
     return function_response
 
 def run_conversation(user_message):
@@ -54,9 +54,13 @@ def run_conversation(user_message):
         print("Error: No content in response")
         
     message = t1.get("candidates")[0].get("content").get("parts")
+    print("message is",message)
     if 'functionCall' in message[0]:
         resp1 = parse_function_response(message)
+        print("Actual response is",resp1)
         return resp1
+    else:
+        print("No function call in response")
     
     print("now we are getting",t1)
     # t2 = t1.get("candidates")[0].get("content").get("parts")[0].get("text")
