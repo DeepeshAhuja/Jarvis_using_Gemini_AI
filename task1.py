@@ -1,6 +1,12 @@
 import requests
 from config import headers, key
 import socket
+import textwrap
+from IPython.display import Markdown
+
+def to_markdown(text):
+  text = text.replace('•', '  *')
+  return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
 
 def get_ip(host):
     try:
@@ -30,7 +36,7 @@ def temp_city(city):
 
 def chat1(chat):
     messages = [] #list with all messages
-    system_message = "You are an AI bot, your name is Jarvis. find the content related to query: " # first instruction
+    system_message = "You are an AI bot, your name is Jarvis. find the content related to query:     " # first instruction
     message = {"role" : "user", "parts" : [{"text": system_message+" "+chat}]}
     messages.append(message)
     data = {"contents" : messages}
