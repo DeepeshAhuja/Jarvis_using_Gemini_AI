@@ -27,10 +27,10 @@ def search_links(query):
 
     #print (help(search))
     urls = []
-    for j in search(query, tld="co.in", num=4, stop=4, pause=2):
+    for j in search(query, tld="co.in", num=10, stop=10, pause=2):
+    
 
         urls.append(j)
-
     urls = list(filter(check_and_remove_social_media, urls))
     return urls
 
@@ -48,3 +48,12 @@ def scrape_p_tags(urls):
         except Exception as e:
             print(f"Error scraping {url}: {e}")
     return all_text
+
+def google_Data(query):  # main
+    #query = "who is ms dhoni"
+    urls=search_links(query)
+    combined_text = scrape_p_tags(urls)
+    return (combined_text)
+
+if __name__ == '__main__':
+    print(google_Data("who is MS Dhoni?"))

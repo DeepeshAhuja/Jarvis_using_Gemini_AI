@@ -54,7 +54,7 @@ def chat1(chat):
 definations = [
     {
         "name":"chat1",  # name of the function to be called
-        "description": "find content of related query",
+        "description": "find content of related query when asked normally",
         "parameters":
             {
                 "type":"object",
@@ -110,7 +110,7 @@ definations = [
     },
     {
         "name":"google_Data",  # name of the function to be called
-        "description": "search information on google scrape data from first 5 links and summarize and give output",
+        "description": "search on google when google is mention in prompt",
         "parameters":
             {
                 "type":"object",
