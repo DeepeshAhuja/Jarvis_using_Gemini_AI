@@ -1,12 +1,14 @@
 import requests
 from config import headers, key
 import socket
-import textwrap
-from IPython.display import Markdown
+from google_data import search_links,scrape_p_tags
 
-def to_markdown(text):
-  text = text.replace('•', '  *')
-  return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
+def google_Data(query):  # main
+    #query = "who is ms dhoni"
+    urls=search_links(query)
+    combined_text = scrape_p_tags(urls)
+
+    return (combined_text)
 
 def get_ip(host):
     try:
@@ -17,7 +19,7 @@ def get_ip(host):
     return result
 
 def temp_room(room):
-    result = "Temperature = 20, Humidity = 50"
+    result = f"{room} Temperature = 20, Humidity = 50"
     return result
 
 def temp_city(city):
@@ -36,7 +38,7 @@ def temp_city(city):
 
 def chat1(chat):
     messages = [] #list with all messages
-    system_message = "You are an AI bot, your name is Jarvis. find the content related to query:     " # first instruction
+    system_message = "You are an AI bot, your name is Jarvis. find the content related to query and convert the output to markdown format: " # first instruction
     message = {"role" : "user", "parts" : [{"text": system_message+" "+chat}]}
     messages.append(message)
     data = {"contents" : messages}
@@ -102,6 +104,20 @@ definations = [
                     "host" : {                 # Argument for function temp_city
                         "type":"string",
                         "description":"get url or domain name"
+                    }
+                }
+            }
+    },
+    {
+        "name":"google_Data",  # name of the function to be called
+        "description": "search information on google scrape data from first 5 links and summarize and give output",
+        "parameters":
+            {
+                "type":"object",
+                "properties":{
+                    "query" : {                 # Argument for function temp_city
+                        "type":"string",
+                        "description":"data to be search on google"
                     }
                 }
             }
