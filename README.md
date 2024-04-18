@@ -8,7 +8,7 @@ It is a simple AI assistant to do task like sending emails, playing music, telli
 
 Get your Gemini API key from here [makersuite](https://makersuite.google.com/app/apikey) and add it in config.py
 
-Get your Weather API key from here [RapidApi](https://rapidapi.com/search/weather) search for free api and get it and add it in config.py
+Get your Weather API key from here [RapidApi](https://rapidapi.com/apishub/api/yahoo-weather5/) select python(requests) in the code snippets and add it in config.py
 
 ## Installation
 
