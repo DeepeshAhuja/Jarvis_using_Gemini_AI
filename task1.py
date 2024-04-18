@@ -1,14 +1,6 @@
 import requests
 from config import headers, key
 import socket
-from google_data import search_links,scrape_p_tags
-
-# def google_Data(query):  # main
-#     #query = "who is ms dhoni"
-#     urls=search_links(query)
-#     combined_text = scrape_p_tags(urls)
-
-#     return (combined_text)
 
 def get_ip(host):
     try:
@@ -38,7 +30,7 @@ def temp_city(city):
 
 def chat1(chat):
     messages = [] #list with all messages
-    system_message = "You are an AI bot, your name is Jarvis. find the content related to query." # first instruction
+    system_message = "You are an AI bot, your name is Jarvis. find the content related to query: " # first instruction
     message = {"role" : "user", "parts" : [{"text": system_message+" "+chat}]}
     messages.append(message)
     data = {"contents" : messages}
@@ -107,21 +99,7 @@ definations = [
                     }
                 }
             }
-    },
-    # {
-    #     "name":"google_Data",  # name of the function to be called
-    #     "description": "search on google when google is mention in prompt",
-    #     "parameters":
-    #         {
-    #             "type":"object",
-    #             "properties":{
-    #                 "query" : {                 # Argument for function temp_city
-    #                     "type":"string",
-    #                     "description":"data to be search on google"
-    #                 }
-    #             }
-    #         }
-    # }
+    }
 ]
 
 if __name__ == "__main__":

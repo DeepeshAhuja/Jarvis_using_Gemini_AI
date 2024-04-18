@@ -87,6 +87,7 @@
     </div>
 
     <script>
+<<<<<<< HEAD
 //        const textwrap = require('textwrap');
 //const marked = require('marked');
 
@@ -95,6 +96,16 @@
 //  const indentedText = textwrap.indent(text, '> ');
 //  return marked(indentedText);
 //}
+=======
+        const textwrap = require('textwrap');
+const marked = require('marked');
+
+function toMarkdown(text) {
+  text = text.replace(/•/g, '  *');
+  const indentedText = textwrap.indent(text, '> ');
+  return marked(indentedText);
+}
+>>>>>>> f2820ec369ec0f1f672ac217acb8e9bb33cf0012
         // JavaScript for sending messages and displaying responses
         function sendMessage() {
             var message = document.getElementById("message-input").value;
@@ -112,7 +123,7 @@
             .then(response => response.json())
             .then(data => {
                 var response = data.response;
-                displayMessage("Jarvis: " + response);
+                displayMessage("Jarvis: " + toMarkdown(response));
             })
             .catch(error => console.error('Error:', error));
         }
