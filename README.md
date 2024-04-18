@@ -20,10 +20,6 @@ Get your Weather API key from here [RapidApi](https://rapidapi.com/search/weathe
 
 ## Run
 
-<<<<<<< HEAD
 `python flask1.py`
 
 open the browser and go to http://localhost:5000/
-=======
-`python agent1.py`
->>>>>>> f2820ec369ec0f1f672ac217acb8e9bb33cf0012
