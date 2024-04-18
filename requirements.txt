@@ -1,6 +1,4 @@
 Flask==1.1.2
-ipython==7.0.1
 ipython==8.6.0
-ipython==7.31.1
 Requests==2.31.0
 SpeechRecognition==3.10.1
