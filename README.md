@@ -10,6 +10,16 @@ Get your Gemini API key from here [makersuite](https://makersuite.google.com/app
 
 Get your Weather API key from here [RapidApi](https://rapidapi.com/apishub/api/yahoo-weather5/) select python(requests) in the code snippets and then subscribe to the free account and then add it in config.py
 
+## Create virtual environment
+
+`pip install virtualenv`
+
+`virtualenv jarvis`
+
+`source jarvis/bin/activate`
+
+`cd jarvis`
+
 ## Installation
 
 `git clone https://github.com/DeepeshAhuja/Jarvis_using_Gemini_AI`
@@ -22,4 +32,4 @@ Get your Weather API key from here [RapidApi](https://rapidapi.com/apishub/api/y
 
 `python flask1.py`
 
-open the browser and go to http://localhost:5000/
+open the browser and go to `http://localhost:5000/`
