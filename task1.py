@@ -1,5 +1,5 @@
 import requests
-from config import headers, key
+from config import key, weather, mail
 import socket
 
 def get_ip(host):
@@ -19,7 +19,7 @@ def temp_city(city):
 
     querystring = {"location":city,"format":"json","u":"f"}
 
-    response = requests.get(url, headers=headers, params=querystring)
+    response = requests.get(url, headers=weather, params=querystring)
 
     d1 = response.json()
     d1 = d1.get("current_observation")
@@ -42,6 +42,24 @@ def chat1(chat):
     t2 = t1.get("candidates")[0].get("content").get("parts")[0].get("text")
     print(t2)
     return t2
+
+def send_email(recipient, subject, body):
+    url = "https://mail-sender-api1.p.rapidapi.com/"
+
+    your_mail_address = "deepesh.ahuja002@gmail.com"
+    print(recipient,subject,body)
+
+    payload = {
+        "sendto": recipient,
+        "replyTo": your_mail_address,
+        "title": subject,
+        "body": body
+    }
+    
+    response = requests.post(url, json=payload, headers=mail)
+
+    print(response.json())
+    return "mail sent successfully"
 
 definations = [
     {
@@ -99,6 +117,28 @@ definations = [
                     }
                 }
             }
+    },
+    {
+        "name":"send_email",  # name of the function to be called
+        "description": "send email using email api",
+        "parameters":
+            {
+                "type":"object",
+                "properties":{
+                    "recipient" : {                 # Argument for function temp_city
+                        "type":"string",
+                        "description":"recipient email address"
+                    },
+                    "subject" : {                 # Argument for function temp_city
+                        "type":"string",
+                        "description":"email subject"
+                    },
+                    "body" : {                 # Argument for function temp_city
+                        "type":"string",
+                        "description":"email body content"
+                    }
+            }
+    }
     }
 ]
 
