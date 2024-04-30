@@ -84,7 +84,7 @@ def get_news(topic):
     response = requests.get(url, headers=news, params=querystring)
     t1=response.json()
     t2 = t1.get('data')
-    for i in range(0,3):
+    for i in range(0,2):
         t3 = t2[i]
         t4 = t3.get('link')
         t5 = t3.get('title')
