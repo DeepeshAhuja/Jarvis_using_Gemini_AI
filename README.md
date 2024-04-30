@@ -50,3 +50,17 @@ open the browser and go to `http://localhost:5000/`
 ## Error Handling
 
 If you have ffmpeg error then you can install ffmpeg in your linux system by `sudo apt install ffmpeg` and for windows follow this page [GeeksForGeeks](https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/)
+
+## Screenshot
+
+# Weather
+![Weather](screenshot/weather.jpg)
+
+# Ip Address
+![Ip Address](screenshot/ip_address.png)
+
+# News
+![News](screenshot/news.png)
+
+# Email
+![Email](screenshot/email.png)
